@@ -1,0 +1,27 @@
+[package]
+name = "spectrum"
+version = "0.1.0"
+authors = ["dlingyang <ceamel@hotmail.com>"]
+edition = "2018"
+repository = "https://github/dlinyang/ultraviolet_ray"
+categories = ["graphics"]
+
+[lib]
+name = "spectrum"
+path = "src/lib.rs"
+
+[dependencies]
+num = "0.2.0"
+rand = "0.7.2"
+image = "0.22.2"
+math_utils = {path = "../math_utils"}
+
+
+[[example]]
+name = "sphere"
+
+[[example]]
+name = "light"
+
+[[example]]
+name = "image"
