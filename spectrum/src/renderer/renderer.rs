@@ -1,4 +1,4 @@
-use super::super::{scene::Scene, scene::canvas::Canvas, format::image_buff::ImageBuff, base::hit::HitRecord, base::ray::Ray};
+use super::super::{scene::Scene, scene::canvas::Canvas, format::image_buff::ImageBuff, base::intersect::Hit, base::ray::Ray};
 use math_utils::*;
 use rand::prelude::*;
 use std::f32::MAX;

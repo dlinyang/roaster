@@ -103,9 +103,9 @@ pub fn load_text (text: Text,font: &Font, dpi: f32, display: &glium::Display) ->
         )
     }).unwrap();
     
-    let uniforms = uniform! {
+    /* let uniforms = uniform! {
         tex: cache_tex.sampled().magnify_filter(glium::uniforms::MagnifySamplerFilter::Nearest)
-    };
+    };*/
 
     let (screen_width, screen_height) = {
         let (w,h) = display.get_framebuffer_dimensions();

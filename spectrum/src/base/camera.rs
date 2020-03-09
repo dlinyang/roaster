@@ -15,31 +15,25 @@ pub struct Camera{
 }
 
 impl Camera {
-    pub fn new(look_from: Vector3,
-           look_at  : Vector3,
-           vup     : Vector3,
-           vfov    : f32,
-           aspect  : f32,
-           aperture: f32,
-           focus_dist: f32) -> Camera {
+    pub fn new(look_from: Vector3, look_at: Vector3, vup: Vector3, vfov: f32, aspect: f32, aperture: f32, focus_dist: f32) -> Self {
            
-               let theta = vfov * PI/180f32;
-               let half_height = Float::tan(theta/2f32);
-               let half_width  = aspect * half_height;
-               let w = (look_from - look_at).normalized();
-               let u = cross(vup,w).normalized();
-               let v = cross(w,u);
-               Camera{
-                   origin: look_from,
-                   upper_left_corner: look_from - half_width * focus_dist * u + half_height * focus_dist * v - focus_dist * w,
-                   horizontal: 2f32 * half_width * focus_dist * u,
-                   vertical: 2f32*half_height * focus_dist * v,
-                   lens_radius: aperture/2f32,
-                   w: w,
-                   u: u,
-                   v: v, 
-               }
-
+        let theta = vfov * PI/180f32;
+        let half_height = Float::tan(theta/2f32);
+        let half_width  = aspect * half_height;
+        let w = (look_from - look_at).normalized();
+        let u = cross(vup,w).normalized();
+        let v = cross(w,u);
+        Self {
+            origin: look_from,
+            upper_left_corner: look_from - half_width * focus_dist * u + half_height * focus_dist * v - focus_dist * w,
+            horizontal: 2f32 * half_width * focus_dist * u,
+            vertical: 2f32*half_height * focus_dist * v,
+            lens_radius: aperture/2f32,
+            w: w,
+            u: u,
+            v: v, 
+        }
+        
     }
 
     pub fn get_ray(&self, u: f32, v: f32) -> Ray {

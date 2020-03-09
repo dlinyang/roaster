@@ -1,7 +1,7 @@
 use crate::base::ray::Ray;
 use super::bvh::BVHNode;
 
-//aixs aliasing bounding box
+//axis aliasing bounding box
 pub struct AABB {
     pub x_min: f32,
     pub x_max: f32,

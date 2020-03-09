@@ -1,10 +1,10 @@
-use ultraviolet_ray::format::{image_buff::ImageBuff,image_file::ImageFile};
-use math_utils::Vector3;
-use ultraviolet_ray::object::sphere::Sphere;
-use ultraviolet_ray::scene::{Scene, canvas::Canvas};
-use ultraviolet_ray::base::camera::Camera;
-use ultraviolet_ray::base::material::*;
-use ultraviolet_ray::renderer::*;
+use spectrum::format::{image_buff::ImageBuff,image_file::ImageFile};
+use spectrum::Vector3;
+use spectrum::object::sphere::Sphere;
+use spectrum::scene::{Scene, canvas::Canvas};
+use spectrum::base::camera::Camera;
+use spectrum::base::material::*;
+use spectrum::renderer::*;
 
 use std::sync::Arc;
 

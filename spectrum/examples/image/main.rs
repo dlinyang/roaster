@@ -1,4 +1,4 @@
-use ultraviolet_ray::*;
+use spectrum::*;
 
 fn main() {
     let w: usize = 400;

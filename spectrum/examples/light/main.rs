@@ -1,7 +1,7 @@
 use math_utils::Vector3;
-use ultraviolet_ray::scene::{Scene, canvas::Canvas};
-use ultraviolet_ray::*;
-use ultraviolet_ray::material::*;
+use spectrum::scene::{Scene, canvas::Canvas};
+use spectrum::*;
+use spectrum::material::*;
 
 use std::sync::Arc;
 

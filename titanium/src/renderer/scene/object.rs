@@ -1,17 +1,16 @@
-use super::super::base::{Vertex, Mat4f};
-use glium::program::Program;
-
+use crate::renderer::base::{Vertex, Mat4f};
+use crate::renderer::pipeline::shader::{ShaderSource};
 //
 pub struct Mesh {
     pub positions: Vec<Vertex>,
     pub indices: Vec<[u32;3]>,
-    pub material: Program,
+    pub material: ShaderSource,
 }
 
 pub enum Material {Empty}
 
 impl Mesh {
-    pub fn new(positions: Vec<Vertex>, indices: Vec<[u32;3]>, material: Program) -> Self {
+    pub fn new(positions: Vec<Vertex>, indices: Vec<[u32;3]>, material: ShaderSource) -> Self {
         Mesh {
             positions,
             indices,

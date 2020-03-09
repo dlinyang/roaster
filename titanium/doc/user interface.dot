@@ -22,7 +22,7 @@ digraph G {
         shape = box
         style = "filled, rounded"
         node [shape = box, style = filled, color = white]
-        Rectangle RoundedRectangle
+        Circle Triangle Rectangle RoundedRectangle
     }
 
 

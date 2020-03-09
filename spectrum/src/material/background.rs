@@ -1,8 +1,8 @@
 use math_utils::*;
 use crate::base::*;
 use crate::base::ray::Ray;
-use crate::base::hit::HitRecord;
-use crate::base::physics::*;
+use crate::base::intersect::Hit;
+use crate::base::material::*;
 
 use std::sync::Arc;
 
@@ -19,7 +19,7 @@ impl PureColor {
 }
 
 impl Material for PureColor {
-    fn shader(&self, ray: &Ray, light: &Vec<Arc<dyn Light>>, hit_record: &HitRecord, color: &mut Color, attenuation: &mut Vector3, scattered: &mut Ray) -> bool {
-        true
+    fn scatter(&self, ray: &Ray, light: &Vec<Arc<dyn Light>>, hit: &Hit, color: &Color) -> Option<Scatter> {
+        Some(Scatter::new(self.color,Ray::default()))
     }
 }

@@ -10,7 +10,8 @@ name = "titanium"
 path = "src/lib.rs"
 
 [dependencies]
-glium = "0.25.1"
+glium = "0.26.0"
+glium-glyph = "0.7.0"
 
 [dependencies.rusttype]
 version = "*"

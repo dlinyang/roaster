@@ -1,6 +1,6 @@
 use math_utils::vector::*;
 use std::f32;
-use super::super::base::hit::*;
+use super::super::base::intersect::*;
 use super::super::base::ray::Ray;
 
 pub struct Sphere{
@@ -23,11 +23,8 @@ impl Sphere {
     }
 }
 
-impl Hit for Sphere {
-    fn hit(&self,ray: &Ray,
-                 t_min: f32,
-                 t_max: f32,
-                 hit_record: &mut HitRecord) -> bool {
+impl Intersect for Sphere {
+    fn intersect(&self,ray: &Ray, t_min: f32, t_max: f32) -> Option<Hit> {
         let oc = ray.origin - self.center;
         let a = dot(ray.direction, ray.direction);
         let b = dot(oc, ray.direction);
@@ -36,22 +33,23 @@ impl Hit for Sphere {
         if discriminant > 0.0 {
             let mut temp = (-b - (b * b - a * c).sqrt()) / a;
             if temp < t_max && temp > t_min {
-                hit_record.t = temp;
-                hit_record.p = ray.get_a_ray(temp);
-                hit_record.normal = (hit_record.p - self.center) / self.radius;
-                hit_record.object = self.material;
-                return true
-            } 
+                let time = temp;
+                let position = ray.get_a_ray(temp);
+                let normal = (position - self.center) / self.radius;
+                let object = self.material;
+                return Some(Hit::create(time, position, normal, object))
+            }
+
             temp = (-b + (b * b - a * c).sqrt()) / a;
             if temp < t_max && temp > t_min {
-                hit_record.t = temp;
-                hit_record.p = ray.get_a_ray(temp);
-                hit_record.normal = (hit_record.p - self.center) / self.radius;
-                hit_record.object = self.material;
-                return true
+                let time = temp;
+                let position = ray.get_a_ray(temp);
+                let normal = (position - self.center) / self.radius;
+                let object = self.material;
+                return Some(Hit::create(time, position, normal, object))
             }
         } 
 
-        false
+        None
     }
 }

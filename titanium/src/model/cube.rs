@@ -1,8 +1,8 @@
-use glium::Program;
+use crate::renderer::pipeline::shader::ShaderSource;
 use crate::renderer::base::{Vertex, alias::Id4f};
 use crate::renderer::scene::object::{Mesh,Object};
 
-pub fn cube(length: f32, program: Program) -> Object {
+pub fn cube(length: f32, program: ShaderSource) -> Object {
     let half_l = length / 2.0;
     let a1 = Vertex::new([half_l, half_l,  half_l], [half_l, half_l,  half_l], [0.0, 0.0]);
     let a2 = Vertex::new([-half_l, half_l, half_l], [-half_l, half_l, half_l], [0.0, 0.0]);

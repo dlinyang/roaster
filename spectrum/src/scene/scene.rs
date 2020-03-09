@@ -1,4 +1,4 @@
-use crate::{base::ray::Ray, base::hit::{Hit,HitRecord}, base::material::Material,base::camera::Camera, base::light::Light };
+use crate::{base::ray::Ray, base::intersect::*, base::material::Material,base::camera::Camera, base::light::Light };
 use crate::material::background::*;
 
 use math_utils::*;
@@ -40,16 +40,12 @@ impl Scene {
         self.camera = camera;
     }
 
-    pub fn hit(&self,ray: &Ray,
-               t_min: f32,
-               t_max: f32,
-               hit_record: &mut HitRecord) -> bool{
-                   let mut temp_record = HitRecord::new();
+    pub fn intersect(&self, ray: &Ray, t_min: f32, t_max: f32) -> Option<Hit> {
+                   let mut temp_record = Hit::new();
                    let mut swap = t_max;
-                   let mut hit = false;
                    let x =  self.objects.len();
                    for i in 0..x { 
-                       if self.objects[i].hit(ray, t_min, swap, &mut temp_record) {
+                       if let Some(hit) = self.objects[i].hit(ray, t_min, swap) {
                            hit = true;
                            swap = temp_record.t;
                            hit_record.normal = temp_record.normal;
