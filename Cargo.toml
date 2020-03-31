@@ -7,14 +7,17 @@ edition = "2018"
 [features]
 default = []
 
+[lib]
+name = "roaster"
+path = "src/lib.rs"
+
 [dependencies]
-winit = "*"
-gfx-hal = "*"
-shaderc = "*"
 log = "*"
 simple_logger = "*"
+serde = "*"
+serde_derive = "*"
+toml = "*"
 titanium = {path = "titanium"} 
-spectrum = {path = "spectrum"}
 math_utils = {path = "math_utils"}
 
 [workspace]

@@ -1,53 +1,26 @@
 digraph G {
     label = "Titanium White";
-   /* EigineInit*/
+
+    node [shape = box, style = "filled,rounded"];
+        Application User_Interface
+
+    subgraph cluster {
+        label = Component;
+        style = filled;
+        color = grey;
+        node [shape = box, style = "filled"]
+        Renderer;
+        Physics;
+        Event;
+        Script;
+    } 
+
     subgraph cluster0 {
-        style = filled;
-        color = skyblue;
-
-        node [ shape= box,style= "rounded, filled", color = white];
-        InitBackend -> LoadScene;
-        label = "EngineInit";
-    }
-
-    /* Loop*/
-    subgraph cluster1 {
-        style = filled;
-        color = skyblue;
-        label = "Loop";
-        node [shape = box, style = "rounded, filled", color = white]
-        edge [style = dashed]
-        Load -> Physics -> Renderer;
-        Load -> Renderer;
-    }
-
-    /* Script */
-    subgraph cluster2 {
-        style = filled;
-        color = grey;
-        label = "Script"
-
-        node [shape = box,style = "rounded,filled" ,color = white];
-        edge [style = dashed];
-        Start -> Run -> End;
-    }
-
-    /* Renderer*/
-    subgraph cluster3 {
-        label = "Renderer"
-        style = filled;
-        color = grey;
-    
-        node [shape= box,style = "filled", color = white]
-        Scene -> UI [style = dashed];
-    }
-
-    subgraph cluster4 {
         label = Resource;
         style = filled;
         
         /* Scence*/
-        subgraph cluster40 {
+        subgraph cluster00 {
             label = "Scene"
             style = filled;
             color = grey;
@@ -56,30 +29,25 @@ digraph G {
             Light;
         }
 
-        /*UI*/
-        subgraph cluster41 {
-            label = "User Interface";
+        subgraph cluster02 {
+            label = "Canvas";
             style = filled;
             color = grey;
             node [shape = box, style = "filled", color = white]
-            Button;
-            Text;
-            Graphics;
+            Layer;
         }
-
-        Other [shape = box, style = "filled,rounded", color = grey]
     }
 
+    subgraph cluster1 {
+        label = "Physics"
+        PyhsicsObject
+        RigidBody;
+    }
 
-    Config -> InitBackend;
-
-    LoadScene -> Load;
-    Load -> {Run,Start} [style = dashed]; 
-    Run -> Input [style = dashed];
-    Run -> {Physics,Renderer} [style = dashed];
-    End -> Load [style = dashed];
-    Resource -> {Load, LoadScene};
-    Config [shape = box, style ="rounded,filled", color = grey]
-    Resource [shape = box, style = "rounded, filled", color = grey]
-    Input [shape = box, style = "rounded,filled", color = grey]
+    edge []
+        Application -> subgraph cluster {};
+        Renderer -> subgraph cluster0 {};
+        User_Interface -> {Event,Renderer};
+    edge [style = "dashed"]
+        Application -> User_Interface;
 }

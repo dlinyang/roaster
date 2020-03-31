@@ -13,7 +13,7 @@ impl Scatter {
     #[inline]
     pub fn new(attenuation: Color, scattered: Ray) -> {
         Self {
-            attenuationm,
+            attenuation,
             scattered,
         }
     }

@@ -1,2 +1,2 @@
-pub mod cube;
 pub mod format;
+pub mod generate;

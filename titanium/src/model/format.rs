@@ -1,4 +1,4 @@
-use crate::renderer::base::vertex::Vertex;
+use crate::base::vertex::Vertex;
 
 pub struct Model {
     pub mesh: Vec<Mesh>,

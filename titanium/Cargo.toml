@@ -10,9 +10,12 @@ name = "titanium"
 path = "src/lib.rs"
 
 [dependencies]
-glium = "0.26.0"
-glium-glyph = "0.7.0"
+glium = { version = "0.27.0", optional = true }
 
 [dependencies.rusttype]
 version = "*"
 features = ["gpu_cache"]
+
+[features]
+default = ["opengl_glium"]
+opengl_glium = ["glium"]

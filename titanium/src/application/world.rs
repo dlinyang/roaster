@@ -1,55 +1,34 @@
-use crate::renderer::base::alias::{Mat4f};
+use crate::base::alias::{Mat4f, Vec4f};
+use crate::base::transform::{perspective};
 
 //the world
+#[derive(Clone,Copy)]
 pub struct World{
-    pub model: Mat4f,
     pub project: Mat4f,
+    pub background: Vec4f,
+    pub fov: f32,
+    pub z_far: f32,
+    pub z_near: f32,
 }
 
 impl World {
-    pub fn new(width: f32, height: f32, scale: f32) -> Self{
+    pub fn new(width: f32, height: f32) -> Self{
         use std::f32::consts::PI;
-        World::create(width, height, scale, PI/3.0, 1024.0, 0.1)
+        World::create(width, height, PI/3.0, 1024.0, 0.1)
     }
 
-    pub fn create(width: f32, height: f32, scale: f32, fov: f32, z_far: f32, z_near: f32) -> Self {
-        let model = World::model(scale, height, width);
-        let project = World::perspective(fov,z_far,z_near);
+    pub fn create(width: f32, height: f32, fov: f32, z_far: f32, z_near: f32) -> Self {
+        let project = perspective(fov,z_far,z_near, height/width);
         World {
-            model,
             project,
+            background: [1.0, 1.0, 1.0, 1.0],
+            fov,
+            z_far,
+            z_near,
         }
     }
 
-    //convert model from real world coordination to openGL coordination
-    pub fn model(scale: f32, height: f32, width: f32) -> Mat4f {
-        let ratio = height/width;
-
-        [
-            [ratio / scale, 0.0       , 0.0       , 0.0],
-            [0.0          , 1.0/ scale, 0.0       , 0.0],
-            [0.0          , 0.0       , 1.0/ scale, 0.0],
-            [0.0          , 0.0       , 0.0       , 1.0],
-        ]
+    pub fn rebuild(&mut self, width: f32, height:f32) {
+        self.project = perspective(self.fov, self.z_far, self.z_near, height/width);
     }
-
-    //perspective matrix
-    pub fn perspective(fov: f32,zf: f32, zn: f32) -> Mat4f {
-        let f = 1.0/(fov/2.0).tan();
-
-        [
-            [f  , 0.0,     0.0      ,          0.0],
-            [0.0, f  ,     0.0      ,          0.0],
-            [0.0, 0.0, 2.0/(zn - zf), (zf+zn)/(zn - zf)],
-            [0.0, 0.0,     0.0      ,          1.0],
-        ]
-    }
-
-    pub fn camera(look_from: [f32;3], look_at: [f32;3],vup: [f32;3]) -> Mat4f {
-        [[1.0, 0.0, 0.0, 0.0]
-        ,[0.0, 1.0, 0.0, 0.0]
-        ,[0.0, 0.0, 1.0, 0.0]
-        ,[0.0, 0.0, 0.0, 1.0]]
-    }
-
 }
