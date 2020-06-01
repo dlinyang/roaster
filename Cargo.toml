@@ -17,8 +17,5 @@ simple_logger = "*"
 serde = "*"
 serde_derive = "*"
 toml = "*"
-titanium = {path = "titanium"} 
-math_utils = {path = "math_utils"}
-
-[workspace]
-members = ["math_utils","titanium","spectrum"]
+titanium = {path = "../titanium"} 
+rmu = {path = "../rmu"}

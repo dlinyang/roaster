@@ -1,19 +1,25 @@
-use titanium::base::{Size, Vec4f};
-use titanium::user_interface::{
+use rmu::raw::Vec4f;
+use titanium::base::Size;
+use titanium::gui::{
     layout::CoordinateArea,
     widget::*,
 };
-use titanium::canvas::{
+use titanium::renderer::canvas::{
     Layer,
     text::Text,
     graphics::*,
 };
+
+use titanium::graphics::Rectangle;  
+use titanium::event::Event;
 
 #[derive(Clone)]
 pub struct InfoBar {
     pub information: String,
     pub color: Vec4f,
     pub font_color: Vec4f,
+    pub coordinate_area: CoordinateArea,
+    pub window_size: Size,
 }
 
 impl InfoBar {
@@ -22,6 +28,8 @@ impl InfoBar {
             information,
             color,
             font_color,
+            coordinate_area: Default::default(),
+            window_size: Default::default(),
         }
     }
 
@@ -32,7 +40,7 @@ impl InfoBar {
 
 
 impl WidgetComponent for InfoBar {
-    fn build(&self,coordinate_area: CoordinateArea, size: Size) -> Vec<Layer> {
+    fn build(&mut self,coordinate_area: CoordinateArea, size: Size) -> Vec<Layer> {
         let mut layers: Vec<Layer> = Vec::new();
 
         let height = coordinate_area.bottom_right_point[1] - coordinate_area.top_left_point[1];
@@ -43,11 +51,11 @@ impl WidgetComponent for InfoBar {
 
         layers.push(Layer::create(
             "info".to_string(), 
-            rectangle::Rectangle::create(
+            Rectangle::create(
                 coordinate_area.top_left_point,
                 width,
                 height, 
-                self.color, GraphicsType::Polygon).to_graphics(),
+                self.color, GraphicsType::Polygon).into(),
             Text::create(self.information.clone(),
              coordinate_area.top_left_point, 
              Size { height: char_pixel_height, width: char_pixel_width}, 
@@ -55,6 +63,10 @@ impl WidgetComponent for InfoBar {
              self.font_color)));
              
         layers
+    }
+
+    fn event(&mut self, event: Event) -> bool {
+        false
     }
 }
 
